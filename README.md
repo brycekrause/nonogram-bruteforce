@@ -1,2 +1,2 @@
 # nonogrambruteforce
-Nonogram.org bruteforcer with python selenium
+Black and white nongram bruteforcer with python selenium
