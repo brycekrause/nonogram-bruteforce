@@ -67,13 +67,15 @@ if not os.path.exists('solved'):
     os.makedirs("solved")
 
 # Save a screenshot
+path = f"solved/{id}.png"
+
 container = driver.find_element(By.CLASS_NAME, "nonogram_table")
-driver.save_screenshot(f"solved/{id}.png")
+driver.save_screenshot(path)
 
 table = container.location
 size = container.size
 
-image = Image.open(f"solved/{id}.png")
+image = Image.open(path)
 
 left = table['x']
 top = table['y']
@@ -81,4 +83,12 @@ right = left + size['width']
 bottom = top + size['height']
 
 final_image = image.crop((left, top, right, bottom))
+if os.path.exists(path):
+    os.remove(path)
+
+final_image.save(path)
+
+
+
+
 print(f"Done!\nSaved nonogram to solved/{id}.png")
