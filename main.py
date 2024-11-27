@@ -1,13 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.alert import Alert 
+from selenium.webdriver.edge.options import Options
 import time
 import os
 
 print("Nonogram.org Bruteforce")
 id = input("Nonogram.org id number: ")
 
-driver = webdriver.Edge()
+options = Options()
+options.add_argument('--headless')
+
+driver = webdriver.Edge(options=options)
 driver.get("https://www.nonograms.org/nonograms/i/" + id)
 
 print("Loading")
@@ -19,6 +23,8 @@ size_value = size.split(': ')[1]
 width, height = size_value.split('x')
 width = int(width)
 height = int(height)
+
+driver.execute_script("document.body.style.zoom = '60%';")
 
 # Fill boxes
 for y in range(height):
