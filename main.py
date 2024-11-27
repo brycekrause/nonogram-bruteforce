@@ -25,8 +25,6 @@ width, height = size_value.split('x')
 width = int(width)
 height = int(height)
 
-driver.execute_script("document.body.style.zoom = '30%';")
-
 # Fill boxes
 for y in range(height):
     for x in range(width):
@@ -67,28 +65,15 @@ if not os.path.exists('solved'):
     os.makedirs("solved")
 
 # Save a screenshot
-path = f"solved/{id}.png"
+name_element = driver.find_element(By.XPATH, "//td[contains(text(), 'Japanese crossword ')]").text
+name = name_element.split("«")[1].rstrip('»')
+
+
+path = f"solved/{name}.png"
+
+driver.execute_script("document.body.style.transform = 'scale(0.5)'; document.body.style.transformOrigin = '0 0';")
 
 container = driver.find_element(By.CLASS_NAME, "nonogram_table")
 driver.save_screenshot(path)
 
-table = container.location
-size = container.size
-
-image = Image.open(path)
-
-left = table['x']
-top = table['y']
-right = left + size['width']
-bottom = top + size['height']
-
-final_image = image.crop((left, top, right, bottom))
-if os.path.exists(path):
-    os.remove(path)
-
-final_image.save(path)
-
-
-
-
-print(f"Done!\nSaved nonogram to solved/{id}.png")
+print(f"Done!\nSaved nonogram to {path}")
