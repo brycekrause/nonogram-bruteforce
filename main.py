@@ -10,7 +10,7 @@ id = input("Nonogram.org id number: ")
 driver = webdriver.Edge()
 driver.get("https://www.nonograms.org/nonograms/i/" + id)
 
-loading = "Loading"
+print("Loading")
 
 time.sleep(5)
 
@@ -26,14 +26,9 @@ width, height = size_value.split('x')
 width = int(width)
 height = int(height)
 
-# TODO: use current width and height
-        # to calculate percentage of completion
-        # (x + y / width + height) * 100
-
 # Fill boxes
 for y in range(height):
     for x in range(width):
-        print(x, y)
         box = driver.find_element(By.ID, f"nmf{x}_{y}")
         box.click()
         box_styles = box.get_attribute('style')
@@ -41,8 +36,8 @@ for y in range(height):
 
         time.sleep(0.01)
 
-        loading += "."
-        print(loading)
+    height_percent = (y / height) * 100
+    print(height_percent)
 
 # Find and click check button
 time.sleep(1)
@@ -52,15 +47,14 @@ time.sleep(1)
 # Find bad squares
 for y in range(height):
     for x in range(width):
-        print(x, y)
         incorrect = driver.find_element(By.ID, f"nmf{x}_{y}")
         if incorrect.value_of_css_property("background-image") == 'url("https://www.nonograms.org/i/cutoutbad3w.gif")':
             incorrect.click()
-        
-        loading += "."
-        print(loading)
 
         time.sleep(0.01)
+
+    height_percent = (y / height) * 100
+    print(height_percent)
 
 # Dismiss solved alert
 time.sleep(2)
