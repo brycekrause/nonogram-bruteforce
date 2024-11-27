@@ -74,6 +74,6 @@ path = f"solved/{name}.png"
 
 container = driver.find_element(By.CLASS_NAME, "nonogram_table")
 driver.execute_script("document.body.style.transform = 'scale(0.5)'; document.body.style.transformOrigin = '0 0';", container)
-driver.save_screenshot(path)
+container.screenshot(path)
 
 print(f"Done!\nSaved nonogram to {path}")
