@@ -24,7 +24,7 @@ width, height = size_value.split('x')
 width = int(width)
 height = int(height)
 
-driver.execute_script("document.body.style.zoom = '60%';")
+driver.execute_script("document.body.style.zoom = '50%';")
 
 # Fill boxes
 for y in range(height):
@@ -37,9 +37,8 @@ for y in range(height):
         time.sleep(0.01)
 
         width_percent = (x / width)
-
-    height_percent = (y / height) * 100 + width_percent
-    print(height_percent)
+        height_percent = (y / height) * 100 + width_percent
+        print(f'Part 1: {round(height_percent, 2)}%')
 
 # Find and click check button
 time.sleep(1)
@@ -56,9 +55,8 @@ for y in range(height):
         time.sleep(0.01)
 
         width_percent = (x / width)
-
-    height_percent = (y / height) * 100 + width_percent
-    print(height_percent)
+        height_percent = (y / height) * 100 + width_percent
+        print(f'Part 2: {round(height_percent, 2)}%')
 
 # Dismiss solved alert
 time.sleep(2)
