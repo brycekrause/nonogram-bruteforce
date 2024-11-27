@@ -6,24 +6,40 @@ import os
 
 print("Nonogram.org Bruteforce")
 id = input("Nonogram.org id number: ")
-width = int(input("Nonogram width: "))
-height = int(input("Nonogram height: "))
-print("Loading... Please wait...")
 
 driver = webdriver.Edge()
 driver.get("https://www.nonograms.org/nonograms/i/" + id)
 
 loading = "Loading"
 
+time.sleep(5)
+
+content = driver.find_element(By.CLASS_NAME, "content")
+size = driver.find_element(By.XPATH, "//td[contains(text(), 'Size: ')]").text
+print(size)
+
+
+size_value = size.split(': ')[1]
+
+width, height = size_value.split('x')
+
+width = int(width)
+height = int(height)
+
+# TODO: use current width and height
+        # to calculate percentage of completion
+        # (x + y / width + height) * 100
+
 # Fill boxes
 for y in range(height):
     for x in range(width):
         print(x, y)
-        box = driver.find_element(By.ID, f"nmf{x}_{y}").click()
+        box = driver.find_element(By.ID, f"nmf{x}_{y}")
+        box.click()
         box_styles = box.get_attribute('style')
         box_styles = box_styles.split(";")
 
-        time.sleep(0.1)
+        time.sleep(0.01)
 
         loading += "."
         print(loading)
@@ -43,6 +59,8 @@ for y in range(height):
         
         loading += "."
         print(loading)
+
+        time.sleep(0.01)
 
 # Dismiss solved alert
 time.sleep(2)
