@@ -61,19 +61,19 @@ time.sleep(2)
 Alert(driver).dismiss()
 time.sleep(2)
 
+
+
+name_element = driver.find_element(By.XPATH, "//span[contains(text(), 'Japanese crossword ')]").text
+name = name_element.split("«")[1].rstrip('»')
+
+# Save a screenshot
 if not os.path.exists('solved'):
     os.makedirs("solved")
 
-# Save a screenshot
-name_element = driver.find_element(By.XPATH, "//td[contains(text(), 'Japanese crossword ')]").text
-name = name_element.split("«")[1].rstrip('»')
-
-
 path = f"solved/{name}.png"
 
-driver.execute_script("document.body.style.transform = 'scale(0.5)'; document.body.style.transformOrigin = '0 0';")
-
 container = driver.find_element(By.CLASS_NAME, "nonogram_table")
+driver.execute_script("document.body.style.transform = 'scale(0.5)'; document.body.style.transformOrigin = '0 0';", container)
 driver.save_screenshot(path)
 
 print(f"Done!\nSaved nonogram to {path}")
