@@ -4,6 +4,7 @@ from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.edge.options import Options
 import time
 import os
+from PIL import Image
 
 print("Nonogram.org Bruteforce")
 id = input("Nonogram.org id number: ")
@@ -24,7 +25,7 @@ width, height = size_value.split('x')
 width = int(width)
 height = int(height)
 
-driver.execute_script("document.body.style.zoom = '50%';")
+driver.execute_script("document.body.style.zoom = '30%';")
 
 # Fill boxes
 for y in range(height):
@@ -38,7 +39,7 @@ for y in range(height):
 
         width_percent = (x / width)
         height_percent = (y / height) * 100 + width_percent
-        print(f'Part 1: {round(height_percent, 2)}%')
+        print(f'Part 1/2: {round(height_percent, 2)}%')
 
 # Find and click check button
 time.sleep(1)
@@ -55,7 +56,7 @@ for y in range(height):
 
         width_percent = (x / width)
         height_percent = (y / height) * 100 + width_percent
-        print(f'Part 2: {round(height_percent, 2)}%')
+        print(f'Part 2/2: {round(height_percent, 2)}%')
 
 # Dismiss solved alert
 time.sleep(2)
@@ -67,5 +68,17 @@ if not os.path.exists('solved'):
 
 # Save a screenshot
 container = driver.find_element(By.CLASS_NAME, "nonogram_table")
-container.screenshot(f"solved/{id}.png")
+driver.save_screenshot(f"solved/{id}.png")
+
+table = container.location
+size = container.size
+
+image = Image.open(f"solved/{id}.png")
+
+left = table['x']
+top = table['y']
+right = left + size['width']
+bottom = top + size['height']
+
+final_image = image.crop((left, top, right, bottom))
 print(f"Done!\nSaved nonogram to solved/{id}.png")
