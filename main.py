@@ -30,11 +30,11 @@ driver.execute_script("document.body.style.zoom = '50%';")
 for y in range(height):
     for x in range(width):
         box = driver.find_element(By.ID, f"nmf{x}_{y}")
+        time.sleep(0.01)
         box.click()
+
         box_styles = box.get_attribute('style')
         box_styles = box_styles.split(";")
-
-        time.sleep(0.01)
 
         width_percent = (x / width)
         height_percent = (y / height) * 100 + width_percent
@@ -50,9 +50,8 @@ for y in range(height):
     for x in range(width):
         incorrect = driver.find_element(By.ID, f"nmf{x}_{y}")
         if incorrect.value_of_css_property("background-image") == 'url("https://www.nonograms.org/i/cutoutbad3w.gif")':
+            time.sleep(0.01)
             incorrect.click()
-
-        time.sleep(0.01)
 
         width_percent = (x / width)
         height_percent = (y / height) * 100 + width_percent
