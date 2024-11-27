@@ -70,10 +70,10 @@ name = name_element.split("«")[1].rstrip('»')
 if not os.path.exists('solved'):
     os.makedirs("solved")
 
-path = f"solved/{name}.png"
+path = f"solved/{id} {name}.png"
 
 container = driver.find_element(By.CLASS_NAME, "nonogram_table")
-driver.execute_script("document.body.style.transform = 'scale(0.5)'; document.body.style.transformOrigin = '0 0';", container)
+#driver.execute_script("document.body.style.transform = 'scale(0.5)'; document.body.style.transformOrigin = '0 0';", container)
 container.screenshot(path)
 
 print(f"Done!\nSaved nonogram to {path}")
