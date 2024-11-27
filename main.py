@@ -14,15 +14,9 @@ print("Loading")
 
 time.sleep(5)
 
-content = driver.find_element(By.CLASS_NAME, "content")
 size = driver.find_element(By.XPATH, "//td[contains(text(), 'Size: ')]").text
-print(size)
-
-
 size_value = size.split(': ')[1]
-
 width, height = size_value.split('x')
-
 width = int(width)
 height = int(height)
 
@@ -36,7 +30,9 @@ for y in range(height):
 
         time.sleep(0.01)
 
-    height_percent = (y / height) * 100
+        width_percent = (x / width)
+
+    height_percent = (y / height) * 100 + width_percent
     print(height_percent)
 
 # Find and click check button
@@ -53,7 +49,9 @@ for y in range(height):
 
         time.sleep(0.01)
 
-    height_percent = (y / height) * 100
+        width_percent = (x / width)
+
+    height_percent = (y / height) * 100 + width_percent
     print(height_percent)
 
 # Dismiss solved alert
